@@ -27,7 +27,8 @@
         address: {{ hostvars[inventory_hostname].private_ip }},
         port: 33145
       }' --format yaml
-      sudo rpk mode production
+      rpk config set redpanda.enable_coproc true
+      sudo rpk mode dev
 
       {% if hostvars[groups['redpanda'][0]].id == hostvars[inventory_hostname].id %}
       sudo rpk config bootstrap \
