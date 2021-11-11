@@ -2,7 +2,7 @@
 
 - include: prepare-data-dir.yml
 
-- include: install-redpanda.yml
+- include: install-redpanda-from-local-pack.yml
 
 - include: start-redpanda.yml
 

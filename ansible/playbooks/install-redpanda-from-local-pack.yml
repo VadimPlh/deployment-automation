@@ -1,0 +1,21 @@
+- name: install redpanda
+  hosts: redpanda
+  vars:
+    deb_path: "{{ lookup('env', 'DEB_PATH') }}"
+    deb_name: "{{ deb_path | basename }}"
+
+  tasks:
+    - name: copy deb
+      copy:
+        src: "{{ deb_path }}"
+        dest: /mnt/vectorized/{{ deb_name }}
+    - name: install deb
+      become_user: root
+      shell: |
+        dpkg --force-confold -i /mnt/vectorized/{{ deb_name }}
+
+    - name: set data dir file perms
+      file:
+        path: /var/lib/redpanda/data
+        owner: redpanda
+        group: redpanda

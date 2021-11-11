@@ -7,8 +7,8 @@ ${ ip } ansible_user=${ ssh_user } ansible_become=True private_ip=${redpanda_pri
 %{ for i, ip in client_public_ips ~}
 ${ ip } ansible_user=${ ssh_user } ansible_become=True private_ip=${client_private_ips[i]} id=${i}
 %{ endfor ~}
-
+i
 %{ if enable_monitoring }
 [monitor]
-${ monitor_public_ip[0] } ansible_user=${ ssh_user } ansible_become=True private_ip=${ monitor_private_ip[0] }
+${ monitor_public_ip } ansible_user=${ ssh_user } ansible_become=True private_ip=${ monitor_private_ip }
 %{ endif }
